@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: git@github.com:isaacnikon/k8s-deployments.git
     targetRevision: HEAD
-    path: environments/pord/pipelines
+    path: environments/prod/pipelines
   destination:
     server: https://kubernetes.default.svc
     namespace: prod
