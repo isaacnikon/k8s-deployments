@@ -11,10 +11,9 @@ spec:
   source:
     repoURL: git@github.com:isaacnikon/k8s-deployments.git
     targetRevision: HEAD
-    path: environments/staging/pipelines
+    path: environments/prod/apps/nginx
   destination:
     server: https://kubernetes.default.svc
-    namespace: staging
   syncPolicy:
     automated:
       prune: true
