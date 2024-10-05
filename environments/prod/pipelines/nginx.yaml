@@ -14,7 +14,7 @@ spec:
     path: environments/prod/apps/nginx
   destination:
     server: https://kubernetes.default.svc
-    namespace: staging
+    namespace: prod
   syncPolicy:
     automated:
       prune: true
