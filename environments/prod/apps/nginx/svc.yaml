@@ -17,7 +17,7 @@ metadata:
   name: nginx-ingress
 spec:
   rules:
-    - host: staging-nginx.webcap.site
+    - host: prod-nginx.webcap.site
       http:
         paths:
           - path: /
