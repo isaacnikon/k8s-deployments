@@ -29,12 +29,12 @@ spec:
     spec:
       source:
         repoURL: git@github.com:isaacnikon/k8s-deployments.git
-        targetRevision: '{{.branch}}'
+        targetRevision: HEAD
         path: environments/staging/apps/nginx
         helm:
           parameters:
           - name: "url"
-            value: "{{.head_sha}}"
+            value: "{{.head_short_sha}}"
       project: default
       destination:
         server: https://kubernetes.default.svc
