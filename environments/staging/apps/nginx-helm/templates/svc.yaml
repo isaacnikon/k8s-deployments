@@ -8,7 +8,7 @@ spec:
   - port: 80
     targetPort: 80
   selector:
-    app: nginx
+    app: "{{ .Values.appName }}"
 ---
 # Exposing the service via traefik to cloudflare endpoint
 apiVersion: networking.k8s.io/v1
