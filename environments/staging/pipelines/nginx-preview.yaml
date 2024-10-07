@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps-preview-pipeline-nginx
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - pullRequest:
+      github:
+        # The GitHub organization or user.
+        owner: isaacnikon
+        # The Github repository
+        repo: web-cap
+        # Reference to a Secret containing an access token. (optional)
+        tokenRef:
+          secretName: github-token
+          key: token
+        # Labels is used to filter the PRs that you want to target. (optional)
+        labels:
+        - preview
+      requeueAfterSeconds: 120
+    template:
+    metadata:
+      name: 'apps-preview-{{.branch}}-{{.number}}'
+    spec:
+      source:
+        repoURL: git@github.com:isaacnikon/k8s-deployments.git
+        targetRevision: '{{.branch}}'
+        path: environments/staging/apps/nginx
+        helm:
+          parameters:
+          - name: "url"
+            value: "{{.head_sha}}"
+      project: default
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: preview
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: false
+        syncOptions:
+          - Validate=true
+          - CreateNamespace=true
+          - PrunePropagationPolicy=foreground
+          - PruneLast=true
