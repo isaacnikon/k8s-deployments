@@ -2,6 +2,10 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: apps-preview-pipeline-nginx
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
