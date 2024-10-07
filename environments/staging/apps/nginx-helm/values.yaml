@@ -1,0 +1,3 @@
+appName: nginx
+service:
+  url: staging-nginx.webcap.site

@@ -1,0 +1,29 @@
+# Kuberenetes Service to expose the ports of the application
+apiVersion: v1
+kind: Service
+metadata:
+  name: "service-{{ .Values.appName }}"
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: nginx
+---
+# Exposing the service via traefik to cloudflare endpoint
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "ingress-{{ .Values.appName }}"
+spec:
+  rules:
+    - host: "{{ .Values.service.url  }}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: "service-{{ .Values.appName }}"
+                port:
+                  number: 80
