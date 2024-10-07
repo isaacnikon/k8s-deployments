@@ -23,29 +23,29 @@ spec:
         labels:
         - preview
       requeueAfterSeconds: 120
-    template:
-      metadata:
-        name: 'apps-preview-{{.branch}}-{{.number}}'
-      spec:
-        source:
-          repoURL: git@github.com:isaacnikon/k8s-deployments.git
-          targetRevision: '{{.branch}}'
-          path: environments/staging/apps/nginx
-          helm:
-            parameters:
-            - name: "url"
-              value: "{{.head_sha}}"
-        project: default
-        destination:
-          server: https://kubernetes.default.svc
-          namespace: preview
-        syncPolicy:
-          automated:
-            prune: true
-            selfHeal: true
-            allowEmpty: false
-          syncOptions:
-            - Validate=true
-            - CreateNamespace=true
-            - PrunePropagationPolicy=foreground
-            - PruneLast=true
+  template:
+    metadata:
+      name: 'apps-preview-{{.branch}}-{{.number}}'
+    spec:
+      source:
+        repoURL: git@github.com:isaacnikon/k8s-deployments.git
+        targetRevision: '{{.branch}}'
+        path: environments/staging/apps/nginx
+        helm:
+          parameters:
+          - name: "url"
+            value: "{{.head_sha}}"
+      project: default
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: preview
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: false
+        syncOptions:
+          - Validate=true
+          - CreateNamespace=true
+          - PrunePropagationPolicy=foreground
+          - PruneLast=true
