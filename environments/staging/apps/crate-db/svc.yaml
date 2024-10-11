@@ -7,13 +7,13 @@ spec:
   ports:
     # Port 4300 for inter-node communication.
   - port: 4300
-    name: crate-inter-node
+    name: crate-internal
     # Port 4200 for HTTP clients.
   - port: 4200
     name: crate-web
     # Port 5432 for PostgreSQL wire protocol clients.
   - port: 5432
-    name: crate-postgre-sql
+    name: postgres
   selector:
     app: crate
 ---
