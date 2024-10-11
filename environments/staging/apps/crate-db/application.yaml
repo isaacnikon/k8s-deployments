@@ -47,6 +47,7 @@ spec:
           - -Cdiscovery.seed_providers=srv
           - -Cdiscovery.srv.query=_crate-internal._tcp.crate-service.${NAMESPACE}.svc.cluster.local
           - -Cgateway.expected_data_nodes=3
+          - -Cgateway.recover_after_data_nodes=2
           - -Cpath.data=/data
         volumeMounts:
               # Mount the `/data` directory as a volume named `data`.
