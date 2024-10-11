@@ -16,6 +16,7 @@ spec:
     targetPort: 5432
   selector:
     app: crate
+---
 # Exposing the service via traefik to cloudflare endpoint
 apiVersion: networking.k8s.io/v1
 kind: Ingress
