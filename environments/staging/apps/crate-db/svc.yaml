@@ -1,0 +1,29 @@
+# Kuberenetes Service to expose the ports of the application
+apiVersion: v1
+kind: Service
+metadata:
+  name: crate-service
+spec:
+  ports:
+  - port: 4300
+    targetPort: 4300
+  selector:
+    app: crate
+---
+# Exposing the service via traefik to cloudflare endpoint
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: crate-ingress
+spec:
+  rules:
+    - host: staging-crate.webcap.site
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name:  crate-service
+                port:
+                  number: 4300
