@@ -46,7 +46,7 @@ spec:
           - -Ccluster.initial_master_nodes=crate-0,crate-1,crate-2
           - -Cdiscovery.seed_providers=srv
           - -Cdiscovery.srv.query=_crate-internal._tcp.crate-service.${NAMESPACE}.svc.cluster.local
-          - -Cgateway.recover_after_data_nodes=2
+          - -Cgateway.expected_data_nodes=3
           - -Cpath.data=/data
         volumeMounts:
               # Mount the `/data` directory as a volume named `data`.
@@ -55,7 +55,7 @@ spec:
         resources:
           limits:
             # How much memory each pod gets.
-            memory: 2g
+            memory: 512Mi
         ports:
           # Port 4300 for inter-node communication.
         - containerPort: 4300
