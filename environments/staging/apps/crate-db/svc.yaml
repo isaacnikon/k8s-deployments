@@ -1,25 +1,20 @@
-kind: Service
+# Kuberenetes Service to expose the ports of the application
 apiVersion: v1
+kind: Service
 metadata:
   name: crate-service
-  labels:
-    app: crate
 spec:
-  # A static IP address is assigned to this service. This IP address is
-  # only reachable from within the Kubernetes cluster.
-  type: ClusterIP
   ports:
     # Port 4300 for inter-node communication.
   - port: 4300
-    name: crate-internal
+    targetPort: 4300
     # Port 4200 for HTTP clients.
   - port: 4200
-    name: crate-web
+    targetPort: 4200
     # Port 5432 for PostgreSQL wire protocol clients.
   - port: 5432
-    name: postgres
+    targetPort: 5432
   selector:
-    # Apply this to all nodes with the `app:crate` label.
     app: crate
 # Exposing the service via traefik to cloudflare endpoint
 apiVersion: networking.k8s.io/v1
