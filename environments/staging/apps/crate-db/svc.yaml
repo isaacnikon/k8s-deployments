@@ -13,7 +13,7 @@ spec:
     name: crate-web
     # Port 5432 for PostgreSQL wire protocol clients.
   - port: 5432
-    name: crate-PostgreSQL
+    name: crate-postgre-sql
   selector:
     app: crate
 ---
