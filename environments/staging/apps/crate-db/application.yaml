@@ -34,6 +34,12 @@ spec:
       - name: crate
         # Use the CrateDB 5.1.1 Docker image.
         image: crate:5.1.1
+        # Pass in configuration to CrateDB via command-line options.
+        # We are setting the name of the node's explicitly, which is
+        # needed to determine the initial master nodes. These are set to
+        # the name of the pod.
+        # We are using the SRV records provided by Kubernetes to discover
+        # nodes within the cluster.
         args:
           - -Cnode.name=${POD_NAME}
           - -Ccluster.name=${CLUSTER_NAME}
@@ -66,8 +72,8 @@ spec:
           # This is variable is detected by CrateDB.
         - name: CRATE_HEAP_SIZE
           value: "1g"
-          # The rest of these variables are used in the command-line
-          # options.
+        - name: CLUSTER_NAME
+          value: "crate"
         - name: POD_NAME
           valueFrom:
             fieldRef:
